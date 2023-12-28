@@ -12,4 +12,7 @@ Use following endings with base url to get different notices :
   <li>/admissions</li> for latest 10 admission notices
   <li>/careers</li> for latest 10 career notices
   <li>/tenders</li> for latest 10 tender notices
-</ul>
+</ul> <br>
+
+This application has been hosted in render.com .<br>
+API url : [https://pondiuni-notice-api.onrender.com/notice](https://pondiuni-notice-api.onrender.com/notice).
