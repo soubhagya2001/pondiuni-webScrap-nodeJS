@@ -1,3 +1,6 @@
+//with date and sorting
+// with date
+
 // Import necessary modules
 const express = require('express');
 const request = require('request-promise');
@@ -22,13 +25,14 @@ async function fetchData() {
     // Find all elements that match the specified selector
     const noticeElements = $('div[data-id="e6e0ef4"] .elementor-heading-title.elementor-size-default a');
 
-    // Loop through each element and extract URL and heading
+    // Loop through each element and extract URL, heading, and date
     noticeElements.each((index, element) => {
       const url = $(element).attr('href'); // Extract URL
       const heading = $(element).text();    // Extract heading
+      const date = $(element).closest('.elementor-row').find('.d1').text().trim(); // Extract date
 
       // Add the data to the array
-      notices.push({ heading, url });
+      notices.push({ heading, url, date });
     });
   } catch (error) {
     console.error('An error occurred while fetching and parsing the data:', error);
@@ -39,7 +43,9 @@ async function fetchData() {
 fetchData().then(() => {
   // Define the route for /notice
   app.get('/notice', (req, res) => {
-    // Return the result as JSON array
+    // Sort the notices array based on date before sending the data
+    notices.sort((a, b) => new Date(b.date) - new Date(a.date));
+    // Return the sorted result as a JSON array
     res.json(notices);
   });
 
